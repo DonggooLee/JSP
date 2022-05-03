@@ -1,0 +1,28 @@
+1. 테이블 생성 - green
+idx 숫자 기본키
+id 문자(20) 필수, 중복 제거
+pw 문자(20) 필수
+name 문자(20) 필수
+age 숫자 필수
+addr 문자(50)
+reg_date 날짜
+-------------------------------
+create table green(
+idx number PRIMARY KEY,
+id varchar2(20) not null unique,
+pw varchar2(20) not null,
+name varchar2(20) not null,
+age number  not null,
+addr varchar2(50),
+reg_date date
+);
+
+
+2. 시퀀스 생성 - idx_seq
+시작 값 1
+증가 값 1
+-------------------------------
+create sequence idx_seq;
+
+
+3. 테이블 구조에 맞춰서 GreenDto 작성

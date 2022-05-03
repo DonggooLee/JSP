@@ -1,0 +1,29 @@
+1. DTO (Data Transfer Object)
+	1) VO(Value Object)라고도 한다.
+	2) 계층간 데이터 교환을 위한 객체(Java Beans)이다.
+	3) 데이터 전달 단위, 객체를 표현하는 단위
+	4) 자바빈 개발 규약 ★★
+		(1) 반드시 특정 패키지에 작성(저장)한다. (디폴트 패키지 사용금지)
+		(2) 필드 + 생성자 + getter/setter 로 구성된다.
+		(3) 필드는 반드시 private 으로 작성한다.
+		(4) 생성자는 반드시 디폴트 생성자를 직접 작성해야 한다. (<jsp:useBean>에서 사용)
+		(5) getter/setter는 반드시 public 으로 작성한다.
+		(6) 테이블의 컬럼들을 멤버 변수로 처리한다.
+
+2. DAO (Data Access Object)
+	1) 실제로 DB에 접근하는 객체이다. - DB에 데이터를 CRUD하는 계층
+	2) Service와 DB를 연결하는 고리의 역할을 한다.
+
+3. 싱글톤 패턴 (singleton)
+	1) 클래스가 최초 한번만 메모리를 할당하고(Static) 그 메모리에 인스턴스를 만들어 사용하는 디자인패턴
+	2) 생성자가 여러 차례 호출되더라도 실제로 생성되는 객체는 하나고 최초 생성 이후에 호출된 생성자는 최초에 생성한 객체를 반환한다.
+		(자바에선 생성자를 private로 선언해서 생성 불가하게 하고 getInstance()로 받아쓰기도 함)
+	3) 싱글톤 패턴은 단 하나의 인스턴스를 생성해 사용하는 디자인 패턴이다.
+		(인스턴스가 필요 할 때 똑같은 인스턴스를 만들어 내는 것이 아니라, 동일(기존) 인스턴스를 사용하게함) 
+	
+	사용예시)
+	private GreenDao() { }								 ---- 디폴트 생성자
+	private static GreenDao dao = new GreenDao(); 		 ---- 딱 하나만 만들어서 쓰자!!(private static)
+	public static GreenDao getInstance() {				 ---- 외부에 공개하는 메소드
+		return dao;
+	}
