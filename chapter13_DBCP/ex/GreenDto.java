@@ -66,5 +66,4 @@ public class GreenDto {
 	public void setDate(Date reg_date) {
 		this.reg_date = reg_date;
 	}
-	
 }

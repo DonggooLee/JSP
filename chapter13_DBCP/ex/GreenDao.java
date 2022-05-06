@@ -87,6 +87,7 @@ public class GreenDao {
 		}
 	}
 	
+	// 1. 전체검색
 	public List<GreenDto> getAllList() {
 		List<GreenDto> list = new ArrayList<GreenDto>();
 		try {
@@ -112,6 +113,132 @@ public class GreenDao {
 			close1(rs, ps, conn);
 		}
 		return list;
+	}
+	
+	// 2. 아이디(id) 검색
+	public GreenDto getOneList(String id) {
+		GreenDto dto = null;
+		try {
+			conn = ds.getConnection();
+			sql = "select * from green where id=?";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, id);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				dto = new GreenDto();
+				dto.setIdx(rs.getInt("idx"));
+				dto.setId(rs.getString("id"));
+				dto.setPw(rs.getString("pw"));
+				dto.setName(rs.getString("name"));
+				dto.setAge(rs.getInt("age"));
+				dto.setAddr(rs.getString("addr"));
+				dto.setDate(rs.getDate("reg_date"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close1(rs, ps, conn);
+		}
+		return dto;
+	}
+	
+	// 3. 데이터 삽입
+	public int getInsert(GreenDto dto) {
+		int result = 0;
+		try {
+			conn = ds.getConnection();
+			conn.setAutoCommit(false);
+			sql = "insert into green values (idx_seq.nextval, ?, ?, ?, ?, ?, sysdate)";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, dto.getId());
+			ps.setString(2, dto.getPw());
+			ps.setString(3, dto.getName());
+			ps.setInt(4, dto.getAge());
+			ps.setString(5, dto.getAddr());
+			result = ps.executeUpdate();
+			if(result>0) {
+				conn.commit();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close2(ps,conn);
+		}
+		return result;
+	}
+	
+	// 4. 데이터 삭제
+	public int getRemove(GreenDto dto) {
+		int result = 0;
+		try {
+			conn = ds.getConnection();
+			conn.setAutoCommit(false);
+			sql = "delete from green where id = ? and pw = ?";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, dto.getId());
+			ps.setString(2, dto.getPw());
+			result = ps.executeUpdate();
+			if(result>0) {
+				conn.commit();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close2(ps,conn);
+		}
+		return result;
+	}
+	
+	// 5. 아이디 비밀번호 알면 데이터 수정페이지로 이동
+	public GreenDto getUpdateView(GreenDto dto) {
+		GreenDto dto2 = null;
+		try {
+			conn = ds.getConnection();
+			sql = "select * from green where id=? and pw=?";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, dto.getId());
+			ps.setString(2, dto.getPw());
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				dto2 = new GreenDto();
+				dto2.setIdx(rs.getInt("idx"));
+				dto2.setId(rs.getString("id"));
+				dto2.setPw(rs.getString("pw"));
+				dto2.setName(rs.getString("name"));
+				dto2.setAge(rs.getInt("age"));
+				dto2.setAddr(rs.getString("addr"));
+				dto2.setDate(rs.getDate("reg_date"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close1(rs, ps, conn);
+		}
+		return dto2;
+	}
+	
+	// 6. 회원정보수정
+	public int getUpdate(GreenDto dto) {
+		int result = 0;
+		try {
+			conn = ds.getConnection();
+			conn.setAutoCommit(false);
+			sql = "update green set name = ?, age = ?, addr = ? where id = ?";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, dto.getName());
+			ps.setInt(2, dto.getAge());
+			ps.setString(3, dto.getAddr());
+			ps.setString(4, dto.getId());
+			result = ps.executeUpdate();
+			if(result > 0) {
+				conn.commit();
+			}		
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close2(ps,conn);
+		}
+		return result;
 	}
 	
 }
