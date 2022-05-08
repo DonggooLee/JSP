@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration 
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<!-- mybtis 사이트 > 시작하기 > dtd -->
+
+<configuration>
+
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			
+			<!-- Connection Pool 관리  -->
+			<dataSource type="POOLED">
+				<property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+				<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+				<property name="username" value="scott"/>
+				<property name="password" value="tiger"/>
+			</dataSource>
+		</environment>        
+	</environments>
+	
+	<!--  어떤 mapper들을 사용할 것인가 ? --> 
+	<mappers>
+    	<mapper resource="org/joonzis/ex/green.xml"/>	<!-- resource : mapper의 위치를 적는다. mapper가 많을경우 여러개 생성 가능-->
+	</mappers>
+	
+</configuration>
