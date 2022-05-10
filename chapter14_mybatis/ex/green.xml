@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="org.joonzis.ex.green"> <!-- 경로 표기법이 클래스명 표기법처럼 사용된다! -->
+<mapper namespace="org.ddongq.ex.green"> <!-- 경로 표기법이 클래스명 표기법처럼 사용된다! -->
 <!-- 
 	mapper에서는 ?(물음표)를 사용할 수 없다. 
 	대신 전달한 파라미터의 이름은 #{}을 통해 적는다!
@@ -17,12 +17,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 -->	 
 	 
 	<!-- 1. 전체 검색  -->
-	<select id="select_all" resultType="org.joonzis.ex.GreenDto">
+	<select id="select_all" resultType="org.ddongq.ex.GreenDto">
 		select * from green order by idx
 	</select>
 	
 	<!-- 2. 아이디 검색  -->
-	<select id="select_by_id" resultType="org.joonzis.ex.GreenDto" parameterType="String"> 
+	<select id="select_by_id" resultType="org.ddongq.ex.GreenDto" parameterType="String"> 
 		select * from green where id = #{id}
 	</select>
 
@@ -34,22 +34,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	-->	
 	
 	<!-- 3. 회원 추가 -->
-	<insert id="insert" parameterType="org.joonzis.ex.GreenDto" >
+	<insert id="insert" parameterType="org.ddongq.ex.GreenDto" >
 		insert into green values (idx_seq.nextval, #{id}, #{pw}, #{name}, #{age}, #{addr}, sysdate)
 	</insert>
 	
 	<!-- 4. 회원 삭제 -->
-	<delete id="remove" parameterType="org.joonzis.ex.GreenDto">
+	<delete id="remove" parameterType="org.ddongq.ex.GreenDto">
 		delete from green where id = #{id} and pw = #{pw}
 	</delete>
 	
 	<!-- 5. 회원 정보 수정 페이지  -->
-	<select id="update_page" parameterType="org.joonzis.ex.GreenDto" resultType="org.joonzis.ex.GreenDto">
+	<select id="update_page" parameterType="org.ddongq.ex.GreenDto" resultType="org.ddongq.ex.GreenDto">
 		select * from green where id = #{id} and pw = #{pw}
 	</select>
 	
 	<!-- 6.회원 정보 수정  -->
-	<update id="update" parameterType="org.joonzis.ex.GreenDto">
+	<update id="update" parameterType="org.ddongq.ex.GreenDto">
 		update green set pw = #{pw}, name = #{name}, age = #{age}, addr = #{addr} where id = #{id}
 	</update>
 	

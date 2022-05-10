@@ -1,4 +1,4 @@
-package org.joonzis.ex;
+package org.ddongq.ex;
 
 import java.io.InputStream;
 
@@ -12,7 +12,7 @@ public class DBService { // factory를 만드는게 목적이다!!
 	// singleton
 	static {		
 		try {
-			String resource = "org/joonzis/ex/sqlmap.xml";	// DBCP가 들어있다
+			String resource = "org/ddongq/ex/sqlmap.xml";	// DBCP가 들어있다
 			InputStream is = Resources.getResourceAsStream(resource);
 			factory = new SqlSessionFactoryBuilder().build(is);
 		} catch (Exception e ) {

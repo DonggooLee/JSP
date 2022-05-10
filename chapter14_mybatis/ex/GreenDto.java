@@ -1,4 +1,4 @@
-package org.joonzis.ex;
+package org.ddongq.ex;
 
 import java.sql.Date;
 
@@ -23,7 +23,7 @@ public class GreenDto {
 		this.addr = addr;
 		this.reg_date = reg_date;
 	}
-	
+
 	public int getIdx() {
 		return idx;
 	}
