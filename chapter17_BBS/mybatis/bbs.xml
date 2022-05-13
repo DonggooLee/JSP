@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="org.ddongq.mybatis.bbs">
+
+	<select id="total_record" resultType="int">
+		SELECT COUNT(*) FROM BBS_T
+	</select>
+	
+	<!--
+		* begin 부터 end 까지 게시물 반환하기
+		1. 오라클 테이블은레코드의 순서를 번호로 반환하는 rownum 필드가 있다.
+		2. rownum 필드는 가상 필드이므로 실제 필드이름을 임의로 부여해서 사용할 수 있다. :
+		 SELECT ROWNUM R_NUM (한칸띄고 새이름을 준다.)
+	
+		* 작업순서 
+		1. b_idx를 기준으로 오름(내림)차순 정렬한다.
+			: SELECT * FROM BBS_T ORDER BY B_IDX 
+		2. 자동으로 매겨지는 순번(rownum)을 1번 결과(A)에 추가한다.
+			: SELECT ROWNUM R_NUM, A.* FROM (SELECT * FROM BBS_T ORDER BY B_IDX) A   
+			: ROWNUM에 새이름 R_NUM을 준다.(한칸띄고 새이름을 준다.) 
+			: A.* : A 결과의 모든 필드
+		3. 2번의 결과에  where절 처리를 한다.(조건처리)
+			: SELECT * FROM (SELECT ROWNUM R_NUM, A.* FROM 
+			(SELECT * FROM BBS_T ORDER BY B_IDX) A) 
+			WHERE R_NUM BETWEEN #{begin} AND #{end}
+	 -->
+	
+	<!-- 가장 안쪽 괄호부터 해석하고 처리한다. 순번까지 정렬된 A에서 R_NUM을 이용해서 begin과 end사이의 조건을 뽑아낸다.-->
+	<select id="list_bbs" parameterType="Map" resultType="org.ddongq.mybatis.BDto" >
+			SELECT * FROM 
+			(SELECT ROWNUM R_NUM, A.* FROM 
+			(SELECT * FROM BBS_T ORDER BY B_IDX DESC) A) 
+			WHERE R_NUM BETWEEN #{begin} AND #{end}
+	</select>
+	
+	<select id="select_by_idx" resultType="org.ddongq.mybatis.BDto" parameterType="int">
+		SELECT * FROM BBS_T WHERE B_IDX = #{b_idx}
+	</select>
+	
+	<insert id="insert" parameterType="org.ddongq.mybatis.BDto">
+		INSERT INTO BBS_T VALUES ( bbs_seq.nextval, #{writer}, #{title}, #{content}, #{pw}, #{hit}, #{ip}, #{filename}, sysdate )
+	</insert>
+	
+	<delete id="remove_by_idx" parameterType="int">
+		DELETE FROM BBS_T WHERE B_IDX = #{b_idx}
+	</delete>
+	
+	<update id="update_by_idx" parameterType="org.ddongq.mybatis.BDto">
+		UPDATE BBS_T SET TITLE = #{title}, CONTENT = #{content}, FILENAME = #{filename} WHERE B_IDX = #{b_idx}
+	</update>
+	
+	<update id="update_by_idx_hit" parameterType="org.ddongq.mybatis.BDto">
+		UPDATE BBS_T SET HIT = #{hit} WHERE B_IDX = #{b_idx}
+	</update>
+	
+	<!-- 댓글 관련 쿼리  -->
+	<select id="select_by_idx_comment" resultType="org.ddongq.mybatis.CDto" parameterType="int">
+		SELECT C_IDX, WRITER, CONTENT, REG_DATE FROM COMMENT_T WHERE B_IDX = #{b_idx}
+	</select>
+	
+	<insert id="insert_commment" parameterType="org.ddongq.mybatis.CDto">
+		INSERT INTO COMMENT_T VALUES ( comment_seq.nextval, #{writer}, #{content}, #{pw}, #{ip}, sysdate, #{b_idx} )
+	</insert>
+	
+	<delete id="remove_by_idx_comment" parameterType="int">
+		DELETE FROM COMMENT_T WHERE C_IDX = #{c_idx}
+	</delete>
+	
+</mapper>
