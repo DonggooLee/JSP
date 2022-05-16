@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="org.ddongq.mybatis.mapper.bbs">
+	
+	<select id="total_record" resultType="int">
+		SELECT COUNT(*) FROM BBS_T
+	</select>
+	
+	<select id="list_bbs" resultType="org.ddongq.dto.BDto" parameterType="Map">
+			SELECT * FROM 
+			(SELECT ROWNUM R_NUM, A.* FROM 
+			(SELECT * FROM BBS_T ORDER BY B_IDX DESC) A) 
+			WHERE R_NUM BETWEEN #{begin} AND #{end}
+	</select>
+
+	<select id="allList_BBS" resultType="org.ddongq.dto.BDto">
+		SELECT * FROM BBS_T
+	</select>
+	
+	<insert id="insert_BBS" parameterType="org.ddongq.dto.BDto">
+		INSERT INTO BBS_T VALUES ( bbs_seq.nextval, #{writer}, #{title}, #{content}, #{pw}, #{hit}, #{ip}, #{filename}, sysdate )
+	</insert>
+	
+	<select id="select_by_idx" resultType="org.ddongq.dto.BDto" parameterType="int">
+		SELECT * FROM BBS_T WHERE B_IDX = #{b_idx}
+	</select>
+	
+	<update id="update_by_idx" parameterType="org.ddongq.dto.BDto">
+		UPDATE BBS_T SET TITLE = #{title}, CONTENT = #{content}, FILENAME = #{filename} WHERE B_IDX = #{b_idx}
+	</update>
+	
+	<delete id="remove_by_idx" parameterType="int">
+		DELETE FROM BBS_T WHERE B_IDX = #{b_idx}
+	</delete>
+	
+	<insert id="insert_commment" parameterType="org.ddongq.dto.CDto">
+		INSERT INTO COMMENT_T VALUES ( comment_seq.nextval, #{writer}, #{content}, #{pw}, #{ip}, sysdate, #{b_idx} )
+	</insert>
+	
+	<select id="select_by_idx_comment" resultType="org.ddongq.dto.CDto" parameterType="int">
+		SELECT C_IDX, WRITER, CONTENT, REG_DATE FROM COMMENT_T WHERE B_IDX = #{b_idx}
+	</select>
+
+	<delete id="remove_by_idx_comment" parameterType="int">
+		DELETE FROM COMMENT_T WHERE C_IDX = #{c_idx}
+	</delete>
+
+	<update id="update_by_idx_hit" parameterType="org.ddongq.dto.BDto">
+		UPDATE BBS_T SET HIT = #{hit} WHERE B_IDX = #{b_idx}
+	</update>
+	
+</mapper>
