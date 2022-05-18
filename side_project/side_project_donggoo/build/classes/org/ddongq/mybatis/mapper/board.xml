@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="org.ddongq.mybatis.mapper.board">
+
+	<!-- 로그인한 회원 게시글 작성 -->
+	<insert id="insert_board" parameterType="org.ddongq.dto.BoardDto">
+		INSERT INTO board_ VALUES (board_seq.nextval, #{title}, #{content}, #{filename}, sysdate, #{user_id})
+	</insert>
+	
+	<!-- 로그인한 회원의 게시글 가져오기 -->
+	<select id="select_board" parameterType="int" resultType="org.ddongq.dto.BoardDto">
+		SELECT * FROM board_ WHERE USER_ID = #{user_id}
+	</select>
+	
+	<!-- 내게시글 중 선택한 게시글의 데이터 가져오기  -->
+	<select id="select_board_idx" parameterType="int" resultType="org.ddongq.dto.BoardDto">
+		SELECT * FROM board_ WHERE BOARD_ID = #{board_id}
+	</select>
+	
+	<!-- 게시글 수정 -->
+	<update id="update_board_idx" parameterType="org.ddongq.dto.BoardDto">
+		UPDATE board_ SET TITLE = #{title}, CONTENT = #{content} WHERE BOARD_ID = #{board_id}
+	</update>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="remove_board_idx" parameterType="int">
+		DELETE FROM board_ WHERE BOARD_ID = #{board_id}
+	</delete>
+	
+</mapper>

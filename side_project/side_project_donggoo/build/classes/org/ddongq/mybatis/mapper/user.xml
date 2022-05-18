@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="org.ddongq.mybatis.mapper.user">
+	
+	<!-- 회원가입 데이터 삽입 -->
+	<insert id="insert_register" parameterType="org.ddongq.dto.UserDto">
+		INSERT INTO USER_ VALUES (user_id_seq.nextval, #{id}, #{pw}, #{name}, #{email}, #{introduce}, sysdate)
+	</insert>	
+	
+	<!-- 로그인한 회원 데이터 가져오기 -->
+	<select id="select_login" parameterType="org.ddongq.dto.UserDto" resultType="org.ddongq.dto.UserDto">
+		SELECT * FROM USER_ WHERE ID = #{id} AND PW = #{pw}
+	</select>
+	
+	<!-- 로그인한 회원의 정보 수정하기 -->
+	<update id="update_by_idx" parameterType="org.ddongq.dto.UserDto">
+		UPDATE USER_ SET ID = #{id}, PW = #{pw}, EMAIL = #{email}, INTRODUCE = #{introduce} WHERE USER_ID = #{user_id}
+	</update>
+	
+</mapper>
