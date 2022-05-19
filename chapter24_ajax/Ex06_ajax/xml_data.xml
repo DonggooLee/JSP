@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE people>
+
+<people>
+	<person>
+		<name>homer</name>
+		<age>34</age>
+	</person>
+	<person>
+		<name>marge</name>
+		<age>34</age>
+	</person>
+	<person>
+		<name>bart</name>
+		<age>10</age>
+	</person>
+	<person>
+		<name>lisa</name>
+		<age>8</age>
+	</person>
+	<person>
+		<name>maggie</name>
+		<age>3</age>
+	</person>
+</people>
