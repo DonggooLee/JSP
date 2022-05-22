@@ -15,4 +15,6 @@ public interface BoardDao {
 	public int getUpdateBoard_(BoardDto dto);
 	// 게시글 삭제
 	public int getRemoveBoard_(int board_id);
+	// 전체 게시글 조회
+	public List<BoardDto> getBoardAll_();
 }

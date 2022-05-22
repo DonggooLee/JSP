@@ -20,4 +20,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		UPDATE USER_ SET ID = #{id}, PW = #{pw}, EMAIL = #{email}, INTRODUCE = #{introduce} WHERE USER_ID = #{user_id}
 	</update>
 	
+	<!-- 모든 회원테이블 조회 -->
+	<select id="select_user_all" parameterType="org.ddongq.dto.UserDto" resultType="org.ddongq.dto.UserDto">
+		SELECT * FROM USER_
+	</select>
+	
 </mapper>

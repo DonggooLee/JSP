@@ -22,4 +22,8 @@ public interface blogService {
 	public int getUpdateBoard(BoardDto dto);
 	// 게시글 삭제
 	public int getRemoveBoard(int board_id);
+	// 게시글 조회 (모든 게시글)
+	public List<BoardDto> getBoard_ALL();
+	// 회원테이블 조회 (모든 회원)
+	public List<UserDto> getUser_ALL();
 }

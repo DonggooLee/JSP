@@ -1,5 +1,7 @@
 package org.ddongq.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.ddongq.dto.UserDto;
 import org.ddongq.mybatis.conf.DBService;
@@ -47,5 +49,10 @@ public class UserDaoImpl implements UserDao{
 			getSqlSession().commit();
 		}
 		return result;
+	}
+	// 모든 회원조회
+	@Override
+	public List<UserDto> getUser_ALLRegister() {
+		return getSqlSession().selectList("select_user_all");
 	}
 }

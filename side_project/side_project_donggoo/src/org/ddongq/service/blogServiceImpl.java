@@ -44,4 +44,12 @@ public class blogServiceImpl implements blogService{
 	public int getRemoveBoard(int board_id) {
 		return dao2.getRemoveBoard_(board_id);
 	}
+	@Override
+	public List<BoardDto> getBoard_ALL() {
+		return dao2.getBoardAll_();
+	}
+	@Override
+	public List<UserDto> getUser_ALL() {
+		return dao1.getUser_ALLRegister();
+	}
 }

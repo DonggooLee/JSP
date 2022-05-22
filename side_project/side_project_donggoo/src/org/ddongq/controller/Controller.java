@@ -36,6 +36,7 @@ public class Controller extends HttpServlet {
 		MultipartRequest mr = null;
 		UserDto u_dto = null;
 		BoardDto b_dto = null;
+		List<UserDto> list_1 = null;
 		List<BoardDto> list_2 = null;
 		int result = 0;
 		int board_id = 0;
@@ -47,6 +48,10 @@ public class Controller extends HttpServlet {
 		switch (cmd) {
 			// 메인 페이지
 			case "index":
+				list_1 = service.getUser_ALL();
+				list_2 = service.getBoard_ALL();
+				request.setAttribute("user_list", list_1);
+				request.setAttribute("board_list", list_2);
 				path = "index.jsp";
 				break;
 			// 로그인 페이지 이동
@@ -148,13 +153,27 @@ public class Controller extends HttpServlet {
 				request.setAttribute("result", result);
 				path = "update_board.jsp";
 				break;
-			// 선택한 게시글 삭제
+			// 내 게시글 보기에서 선택한 게시글 삭제
 			case "remove_board":
 				board_id = Integer.parseInt(request.getParameter("board_id"));
 				result = service.getRemoveBoard(board_id);
 				request.setAttribute("result", result);
 				path = "remove_board.jsp";
 				break;
+			// index 페이지에서 게시글을 클릭하면 해당 게시글이 가지고 있는 정보 페이지로 이동
+			case "view_page":
+				board_id = Integer.parseInt(request.getParameter("board_id"));
+				b_dto = service.getBoardIdx(board_id);
+				list_1 = service.getUser_ALL();
+				request.setAttribute("user_list", list_1);
+				request.setAttribute("select_board", b_dto);
+				path = "view_page.jsp";
+				break;
+				
+				
+				
+		
+				
 		}
 		request.getRequestDispatcher(path).forward(request, response);
 	}

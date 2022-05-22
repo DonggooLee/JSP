@@ -59,4 +59,8 @@ public class BoardDaoImpl implements BoardDao{
 		}
 		return result;
 	}
+	@Override
+	public List<BoardDto> getBoardAll_() {
+		return getSqlSession().selectList("select_board_all");
+	}
 }

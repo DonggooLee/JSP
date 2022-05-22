@@ -13,7 +13,7 @@
 </style>
 <!-- <script type="text/javascript">
 	function write(f) {
-		if(f.title.value==""||f.title.value==""){
+		if(f.title.value==""||f.content.value==""){
 			alert("모두 입력해주세요");
 			return;
 		}
@@ -33,6 +33,7 @@
 			<br>
 			<p>
 				<input type="reset" value="다시작성">&nbsp;
+				<!-- <input type="button" value="글쓰기" onclick="write(this.form)"> -->
 				<input type="submit" value="글쓰기">
 				<input type="hidden" name="user_id" value="${login_info.user_id}">
 			</p>
