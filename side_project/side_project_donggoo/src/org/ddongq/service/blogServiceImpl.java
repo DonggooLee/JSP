@@ -73,4 +73,8 @@ public class blogServiceImpl implements blogService{
 	public List<CommentDto> getComment(int board_id) {
 		return dao2.getComment_(board_id);
 	}
+	@Override
+	public int getRemoveComment(int comment_id) {
+		return dao2.getRemoveComment_(comment_id);
+	}
 }

@@ -28,4 +28,6 @@ public interface BoardDao {
 	public int getInsertComment_(CommentDto dto);
 	// 전체 댓글 조회
 	public List<CommentDto> getComment_(int board_id);
+	// 게시글 댓글 삭제
+	public int getRemoveComment_(int comment_id);
 }

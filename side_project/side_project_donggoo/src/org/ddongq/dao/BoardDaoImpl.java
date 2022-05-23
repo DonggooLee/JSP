@@ -92,4 +92,12 @@ public class BoardDaoImpl implements BoardDao{
 	public List<CommentDto> getComment_(int board_id) {
 		return getSqlSession().selectList("select_comment_by_id", board_id);
 	}
+	@Override
+	public int getRemoveComment_(int comment_id) {
+		result = getSqlSession().delete("remove_comment_by_id", comment_id);
+		if(result>0) {
+			getSqlSession().commit();
+		}
+		return result;
+	}
 }

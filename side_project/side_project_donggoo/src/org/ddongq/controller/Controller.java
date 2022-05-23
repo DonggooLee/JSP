@@ -44,6 +44,7 @@ public class Controller extends HttpServlet {
 		int result = 0;
 		int user_id = 0;
 		int board_id = 0;
+		int comment_id = 0;
 		String path = null;
 		String open = null;
 		String realPath = null;
@@ -219,6 +220,21 @@ public class Controller extends HttpServlet {
 				request.setAttribute("board_id", board_id);
 				request.setAttribute("result", result);
 				path = "insert_comment.jsp";
+				break;
+			case "remove_comment":
+				board_id = Integer.parseInt(request.getParameter("board_id"));
+				comment_id = Integer.parseInt(request.getParameter("comment_id"));
+				result = service.getRemoveComment(comment_id);
+				request.setAttribute("board_id", board_id);
+				request.setAttribute("result", result);
+				path = "remove_comment.jsp";
+				break;
+			case "update_comment":
+				board_id = Integer.parseInt(request.getParameter("board_id"));
+				comment_id = Integer.parseInt(request.getParameter("comment_id"));
+				
+				request.setAttribute("board_id", board_id);
+				path = "update_comment.jsp";
 				break;
 		}
 		request.getRequestDispatcher(path).forward(request, response);

@@ -55,9 +55,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO comment_ VALUES (COMMENT_ID_SEQ.nextval, #{comments}, #{board_id}, #{user_id}, sysdate)
 	</insert>
 	
-	<!-- 게시판 번호와 일치하는 댓글 -->
+	<!-- 게시판 번호와 일치하는 댓글 조회-->
 	<select id="select_comment_by_id" resultType="org.ddongq.dto.CommentDto">
 		SELECT * FROM comment_ WHERE BOARD_ID = #{board_id}
 	</select>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="remove_comment_by_id" parameterType="int">
+		DELETE FROM comment_ WHERE COMMENT_ID = #{comment_id}
+	</delete>
 	
 </mapper>

@@ -54,6 +54,9 @@
 	.comment_top{
 		padding: 10px;
 		font-size: 15px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 	}
 	.comment_bottom{
 		padding: 10px;
@@ -132,9 +135,24 @@
                     <c:forEach var="comment_list" begin="0" end="${comment_length}" items="${comment_list}" step="1">
 						<c:forEach var="user_list" begin="0" end="${user_length}" items="${user_list}" step="1">
 							 <c:if test="${comment_list.user_id eq user_list.user_id}">
-								<div class="comment_top">Write by <b>${user_list.id}</b> · ${comment_list.reg_date}</div>
+								<div class="comment_top">
+									<div class="comment_sub_info">
+										Write by <b>${user_list.id}</b> · ${comment_list.reg_date}
+									</div>
+									<!-- 로그인한 사용자와 댓글의 사용자 고유 id값이 동일할 경우에만 삭제 버튼이 활성화 -->
+									<c:if test="${login_info.user_id eq comment_list.user_id}">
+										<div>
+											<a href="/side_project_donggoo/Controller?cmd=update_comment&comment_id=${comment_list.comment_id}&board_id=${select_board.board_id}">
+												<img src="./images/update.jpg" style="width: 30px; height: 30px;">
+											</a>
+											&nbsp;&nbsp;
+											<a href="/side_project_donggoo/Controller?cmd=remove_comment&comment_id=${comment_list.comment_id}&board_id=${select_board.board_id}">
+												<img src="./images/delete.jpg" style="width: 30px; height: 30px;">
+											</a>
+										</div>
+									</c:if>
+								</div>
 								<div class="comment_bottom">${comment_list.comments}</div>
-								<hr>
 							 </c:if>
 						</c:forEach>
                     </c:forEach>

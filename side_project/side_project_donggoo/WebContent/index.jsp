@@ -119,9 +119,17 @@
         </div><!-- end : container_1 -->
 		<br>
         <div class="container_2">
-            <div class="btn_order"><a href="/side_project_donggoo/Controller?cmd=index_order_reg">정렬(최신순)</a></div>
-            &nbsp;/&nbsp;
-           	<div class="btn_order"><a href="/side_project_donggoo/Controller?cmd=index_order_hit">정렬(조회수)</a></div>
+            <div class="btn_order">
+	            <a href="/side_project_donggoo/Controller?cmd=index_order_hit">
+	           		<img src="./images/trending.jpg" style="width: 30px; height: 30px;">
+	            </a>
+            </div>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+           	<div class="btn_order">
+           		<a href="/side_project_donggoo/Controller?cmd=index_order_reg">
+           			<img src="./images/time.jpg" style="width: 30px; height: 30px;">
+           		</a>
+           	</div>
         </div><!-- end : container_2 -->
         <div class="container_3">
             <c:choose>

@@ -37,4 +37,6 @@ public interface blogService {
 	public int getInsertComment(CommentDto dto);
 	// 게시판 댓글 조회
 	public List<CommentDto> getComment(int board_id);
+	// 게시간 댓글 삭제
+	public int getRemoveComment(int comment_id);
 }
