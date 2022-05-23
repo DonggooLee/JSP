@@ -3,6 +3,7 @@ package org.ddongq.dao;
 import java.util.List;
 
 import org.ddongq.dto.BoardDto;
+import org.ddongq.dto.CommentDto;
 
 public interface BoardDao {
 	// 로그인한 아이디로 게시글 작성
@@ -17,4 +18,14 @@ public interface BoardDao {
 	public int getRemoveBoard_(int board_id);
 	// 전체 게시글 조회
 	public List<BoardDto> getBoardAll_();
+	// 전체 게시글 조회 (최신순)
+	public List<BoardDto> getBoard_ALL_ORDER_REG_();
+	// 전체 게시글 조회 (조회수순)
+	public List<BoardDto> getBoard_ALL_ORDER_HIT_();
+	// 선택한 게시글 조회수 업데이트
+	public int getUpdateByHit_(BoardDto dto);
+	// 게시글 댓글 추가
+	public int getInsertComment_(CommentDto dto);
+	// 전체 댓글 조회
+	public List<CommentDto> getComment_(int board_id);
 }

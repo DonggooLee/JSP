@@ -7,13 +7,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-	.top-container {
+	.container {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 		margin-top: 30px;
 	}
-	.top-container-right {
+	.container_ {
 		display: flex;
 		align-items: center;
 	}
@@ -32,7 +32,7 @@
 	}
 	tr, td{
 		text-align: center;
-		padding: 15px;
+		padding: 20px;
 	}
 	a{
 		text-decoration: none;
@@ -42,11 +42,11 @@
 </style>
 </head>
 <body>
-	<div class="top-container">
+	<div class="container">
 		<div>
 			<a href="/side_project_donggoo/Controller?cmd=index" class="logo">${login_info.id}의 Velog </a>
 		</div>
-		<div class="top-container-right">
+		<div class="container_">
 			<div><img src="./images/search.png" style="width: 30px; height: 30px;"></div>
 			&nbsp;&nbsp;
 			<c:choose>
@@ -82,7 +82,7 @@
 						<td>${b_dto.content }</td>
 						<td>${b_dto.reg_date }</td>
 						<td>${b_dto.filename }</td>
-						<td>
+						<td> <!--  --> 
 							<a href="/side_project_donggoo/Controller?cmd=remove_board&board_id=${b_dto.board_id}">
 								<img src="./images/deletebutton.png" style="width: 15px; height: 15px;">
 							</a>
@@ -101,6 +101,6 @@
 				<button onclick="location.href='/side_project_donggoo/Controller?cmd=index'">목록으로 이동</button>
 			</td>
 		</tr>
-	</table>
+	</table> <!-- end : table -->
 </body>
 </html>

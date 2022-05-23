@@ -8,23 +8,34 @@
 <title>Insert title here</title>
 <style type="text/css">
 	.container{
-		width: 1000px;
+		margin: auto;
 	}
 </style>
-<!-- <script type="text/javascript">
-	function write(f) {
-		if(f.title.value==""||f.content.value==""){
-			alert("모두 입력해주세요");
-			return;
+<script type="text/javascript">
+	function write_(){
+		var f = document.forms.myForm;
+		if(f.title.value==""){
+			alert("제목을 입력하세요.");
+			f.title.focus();
+			return false;
 		}
-		f.action="/side_project_donggoo/Controller?cmd=write"
-		f.submit();
+		if(f.filename.value==""){
+			alert("첨부파일을 입력하세요.");
+			f.filename.focus();
+			return false;
+		}
+		if(f.content.value==""){
+			alert("내용을 입력하세요.");
+			f.content.focus();
+			return false;
+		}
+		return true;
 	}
-</script> -->
+</script>
 </head>
 <body>
-	<div class="container">
-		<form method="post" enctype="multipart/form-data" action="/side_project_donggoo/Controller?cmd=write">
+	<div class="container" >
+		<form method="post" name="myForm" enctype="multipart/form-data" action="/side_project_donggoo/Controller?cmd=write" onsubmit="return write_()">
 			<input type="text" name="title" placeholder="제목을 입력하세요" size="95px" style="padding: 10px;">
 			<br><br>
 			첨부파일 : <input type="file" name="filename"/>
@@ -33,7 +44,6 @@
 			<br>
 			<p>
 				<input type="reset" value="다시작성">&nbsp;
-				<!-- <input type="button" value="글쓰기" onclick="write(this.form)"> -->
 				<input type="submit" value="글쓰기">
 				<input type="hidden" name="user_id" value="${login_info.user_id}">
 			</p>

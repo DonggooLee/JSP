@@ -9,14 +9,15 @@
 </head>
 <body>
 	<c:choose>
-		<c:when test="${not empty login_info.id && not empty login_info.pw}">
+		<c:when test="${result gt 0}">
 			<script type="text/javascript">
-				location.href="${pageContext.request.contextPath}/Controller?cmd=index";
+				alert("댓글이 작성되었습니다");
+				location.href="${pageContext.request.contextPath}/Controller?cmd=view_page&board_id=${board_id}";
 			</script>
 		</c:when>
 		<c:otherwise>
 			<script type="text/javascript">
-				alert("로그인에 실패했습니다.");
+				alert("댓글이 작성에 실패했습니다");
 				history.back();
 			</script>
 		</c:otherwise>

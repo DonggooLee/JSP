@@ -10,6 +10,7 @@
 		width: 500px;
 		margin: auto;
 		border: 1px solid black;
+		margin-top: 250px;
 	}
 	table{
 		margin: auto;

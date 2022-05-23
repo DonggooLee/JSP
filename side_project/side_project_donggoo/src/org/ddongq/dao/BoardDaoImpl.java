@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.ddongq.dto.BoardDto;
+import org.ddongq.dto.CommentDto;
 import org.ddongq.mybatis.conf.DBService;
 
 public class BoardDaoImpl implements BoardDao{
@@ -62,5 +63,33 @@ public class BoardDaoImpl implements BoardDao{
 	@Override
 	public List<BoardDto> getBoardAll_() {
 		return getSqlSession().selectList("select_board_all");
+	}
+	@Override
+	public List<BoardDto> getBoard_ALL_ORDER_REG_() {
+		return getSqlSession().selectList("select_board_all_reg");
+	}
+	@Override
+	public List<BoardDto> getBoard_ALL_ORDER_HIT_() {
+		return getSqlSession().selectList("select_board_all_hit");
+	}
+	@Override
+	public int getUpdateByHit_(BoardDto dto) {
+		result = getSqlSession().update("update_by_hit", dto);
+		if(result>0) {
+			getSqlSession().commit();
+		}
+		return result;
+	}
+	@Override
+	public int getInsertComment_(CommentDto dto) {
+		result = getSqlSession().insert("insert_comment", dto);
+		if(result>0) {
+			getSqlSession().commit();
+		}	
+		return result;
+	}
+	@Override
+	public List<CommentDto> getComment_(int board_id) {
+		return getSqlSession().selectList("select_comment_by_id", board_id);
 	}
 }

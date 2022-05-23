@@ -6,6 +6,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+	.container{
+		margin-top: 130px;
+	}
 	div, table {
 		margin: auto;
 		text-align: center;
@@ -25,7 +28,7 @@
 </style>
 </head>
 <body>
-	<div>
+	<div class="container">
 		<form action="/side_project_donggoo/Controller?cmd=register" method="post">
 			<h1>환영합니다!</h1>
 			<h3>기본 회원 정보를 등록해주세요</h3>

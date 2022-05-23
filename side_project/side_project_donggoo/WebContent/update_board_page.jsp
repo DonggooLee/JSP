@@ -9,6 +9,7 @@
 <style type="text/css">
 	form {
 		text-align: center;
+		margin-top: 100px;
 	}
 	table {
 		margin: auto;
@@ -17,6 +18,10 @@
 	}
 	textarea{
 		resize: none;
+		size: 100px;
+	}
+	#title{
+		size: 55px;
 	}
 </style>
 </head>
@@ -34,7 +39,7 @@
 			</tr>
 			<tr>
 				<th>제목</th>
-				<td><input type="text" name="title" value="${select_board.title}"></td>
+				<td><input type="text" name="title" value="${select_board.title}" size="55px" id="title"></td>
 			</tr>
 			<tr>
 				<th>첨부파일</th>
@@ -43,7 +48,7 @@
 						<td colspan="3">첨부파일 없음</td>
 					</c:when>
 					<c:otherwise>
-						<td colspan="3"><a href="download.jsp?path=upload&filename=${select_board.filename}">${select_board.filename}</a></td>
+						<td colspan="3">${select_board.filename}</td>
 					</c:otherwise>
 				</c:choose>
 			</tr>

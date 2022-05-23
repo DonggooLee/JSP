@@ -7,6 +7,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+	form{
+		margin-top: 105px;
+	}
 	div, table {
 		margin: auto;
 		text-align: center;

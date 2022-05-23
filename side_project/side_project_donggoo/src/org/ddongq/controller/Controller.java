@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.ddongq.dto.BoardDto;
+import org.ddongq.dto.CommentDto;
 import org.ddongq.dto.UserDto;
 import org.ddongq.service.blogService;
 import org.ddongq.service.blogServiceImpl;
@@ -36,11 +37,15 @@ public class Controller extends HttpServlet {
 		MultipartRequest mr = null;
 		UserDto u_dto = null;
 		BoardDto b_dto = null;
+		CommentDto c_dto = null;
 		List<UserDto> list_1 = null;
 		List<BoardDto> list_2 = null;
+		List<CommentDto> list_3 = null;
 		int result = 0;
+		int user_id = 0;
 		int board_id = 0;
 		String path = null;
+		String open = null;
 		String realPath = null;
 		HttpSession session = request.getSession();
 		blogService service = new blogServiceImpl();
@@ -48,6 +53,10 @@ public class Controller extends HttpServlet {
 		switch (cmd) {
 			// 메인 페이지
 			case "index":
+				open = (String)session.getAttribute("open");
+				if(open!=null){
+					session.removeAttribute("open");
+				}
 				list_1 = service.getUser_ALL();
 				list_2 = service.getBoard_ALL();
 				request.setAttribute("user_list", list_1);
@@ -129,7 +138,7 @@ public class Controller extends HttpServlet {
 				break;
 			// 내 게시글 페이지 이동
 			case "my_post_page":
-				int user_id = Integer.parseInt(request.getParameter("user_id"));
+				user_id = Integer.parseInt(request.getParameter("user_id"));
 				list_2 = service.getBoard(user_id);
 				request.setAttribute("board_list", list_2);
 				path = "my_post_page.jsp";
@@ -163,17 +172,54 @@ public class Controller extends HttpServlet {
 			// index 페이지에서 게시글을 클릭하면 해당 게시글이 가지고 있는 정보 페이지로 이동
 			case "view_page":
 				board_id = Integer.parseInt(request.getParameter("board_id"));
+				list_3 = service.getComment(board_id);
 				b_dto = service.getBoardIdx(board_id);
+				open = (String)session.getAttribute("open");
+				if(open==null){
+					session.setAttribute("open", "YES");
+					int hit = b_dto.getHit()+1;
+					b_dto.setHit(hit);
+					b_dto.setBoard_id(board_id);
+					service.getUpdateByHit(b_dto);
+				}
+				// DB 저장된 모든 회원 조회
 				list_1 = service.getUser_ALL();
-				request.setAttribute("user_list", list_1);
+				// 게시판 번호에 해당하는 댓글 조회
+				session.setAttribute("user_list", list_1);
+				request.setAttribute("comment_list", list_3);
 				request.setAttribute("select_board", b_dto);
 				path = "view_page.jsp";
 				break;
-				
-				
-				
-		
-				
+			// 게시글 정렬 인덱스(최신날짜순)
+			case "index_order_reg":
+				list_1 = service.getUser_ALL();
+				list_2 = service.getBoard_ALL_ORDER_REG();
+				request.setAttribute("user_list", list_1);
+				request.setAttribute("board_list", list_2);
+				path = "index.jsp";
+				break;
+			// 게시글 정렬 인덱스(조회수순)
+			case "index_order_hit":
+				list_1 = service.getUser_ALL();
+				list_2 = service.getBoard_ALL_ORDER_HIT();
+				request.setAttribute("user_list", list_1);
+				request.setAttribute("board_list", list_2);
+				path = "index.jsp";
+				break;
+			// 댓글 추가
+			case "insert_comment":
+				user_id = Integer.parseInt(request.getParameter("user_id"));
+				board_id = Integer.parseInt(request.getParameter("board_id"));
+				String comment = request.getParameter("comment");
+				c_dto = new CommentDto();
+				c_dto.setUser_id(user_id);
+				c_dto.setBoard_id(board_id);
+				c_dto.setComments(comment);
+				result = service.getInsertComment(c_dto);
+				request.setAttribute("board_id", board_id);
+				request.setAttribute("result", result);
+				path = "insert_comment.jsp";
+				break;
 		}
 		request.getRequestDispatcher(path).forward(request, response);
 	}

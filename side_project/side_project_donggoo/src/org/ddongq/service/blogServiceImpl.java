@@ -6,6 +6,7 @@ import org.ddongq.dao.BoardDao;
 import org.ddongq.dao.BoardDaoImpl;
 import org.ddongq.dao.UserDao;
 import org.ddongq.dto.BoardDto;
+import org.ddongq.dto.CommentDto;
 import org.ddongq.dto.UserDto;
 import org.ddongq.dao.UserDaoImpl;
 
@@ -51,5 +52,25 @@ public class blogServiceImpl implements blogService{
 	@Override
 	public List<UserDto> getUser_ALL() {
 		return dao1.getUser_ALLRegister();
+	}
+	@Override
+	public List<BoardDto> getBoard_ALL_ORDER_REG() {
+		return dao2.getBoard_ALL_ORDER_REG_();
+	}
+	@Override
+	public List<BoardDto> getBoard_ALL_ORDER_HIT() {
+		return dao2.getBoard_ALL_ORDER_HIT_();
+	}
+	@Override
+	public int getUpdateByHit(BoardDto dto) {
+		return dao2.getUpdateByHit_(dto);
+	}
+	@Override
+	public int getInsertComment(CommentDto dto) {
+		return dao2.getInsertComment_(dto);
+	}
+	@Override
+	public List<CommentDto> getComment(int board_id) {
+		return dao2.getComment_(board_id);
 	}
 }
