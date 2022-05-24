@@ -87,7 +87,11 @@ public class blogServiceImpl implements blogService{
 		return dao2.getCountComment_(board_id);
 	}
 	@Override
-	public List<CommentCountDto> getCountComment() {
-		return dao2.getCountComment_();
+	public List<CommentCountDto> getCountComments() {
+		return dao2.getCountComments_();
+	}
+	@Override
+	public List<BoardDto> getSearch(String search) {
+		return dao2.getSearch_(search);
 	}
 }

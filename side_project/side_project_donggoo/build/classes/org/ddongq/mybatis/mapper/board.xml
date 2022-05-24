@@ -72,12 +72,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 댓글 개수 구하기 -->
 	<select id="count_comment_by_id" parameterType="int" resultType="int">
-		SELECT count(comments) FROM comment_ WHERE board_id = #{board_id} GROUP BY board_id
+		SELECT count(*) FROM comment_ WHERE board_id = #{board_id}
 	</select>
 	
 	<!-- 메인 홈페이지 댓글 개수 구하기 -->
 	<select id="count_comment_all" resultType="org.ddongq.dto.CommentCountDto">
-		SELECT count(comments) as count, board_id FROM comment_ GROUP BY board_id
+		SELECT count(*) as count, board_id FROM comment_ GROUP BY board_id
+	</select>
+	
+	<!-- 검색 -->
+	<select id="search" resultType="org.ddongq.dto.BoardDto" parameterType="String">
+		SELECT * FROM board_ WHERE title LIKE '%${search}%' OR content LIKE '%${search}%'
 	</select>
 	
 </mapper>

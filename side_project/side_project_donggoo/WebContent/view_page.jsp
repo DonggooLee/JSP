@@ -140,13 +140,13 @@
         		<div class="bottom_comment">
 	        		<div id="count_comment">
 	        			<div><img src="./images/comment.jpg" style="width: 30px; height: 30px;"></div>
-	        			<div><b>&nbsp;&nbsp;${comment_count}</b></div>
+	        			<div><b>&nbsp;&nbsp; ${comment_count}</b></div>
 	        		</div>
 	        		<div id="btn_comment"><input type="submit" value="댓글작성" style="padding: 5px;"></div>
         		</div>
         	</form>
         </div><!-- end : container_3 -->
-         <br><hr><br>
+        <br><hr><br>
         <div class="container_4">
       		<c:choose>
       			<c:when test="${not empty comment_list}">

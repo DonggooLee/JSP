@@ -114,7 +114,11 @@ public class BoardDaoImpl implements BoardDao{
 		return getSqlSession().selectOne("count_comment_by_id", board_id);
 	}
 	@Override
-	public List<CommentCountDto> getCountComment_() {
+	public List<CommentCountDto> getCountComments_() {
 		return getSqlSession().selectList("count_comment_all");
+	}
+	@Override
+	public List<BoardDto> getSearch_(String search) {
+		return getSqlSession().selectList("search", search);
 	}
 }

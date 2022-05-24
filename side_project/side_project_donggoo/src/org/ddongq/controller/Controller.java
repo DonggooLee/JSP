@@ -62,7 +62,7 @@ public class Controller extends HttpServlet {
 				}
 				list_1 = service.getUser_ALL();
 				list_2 = service.getBoard_ALL();
-				list_4 = service.getCountComment();
+				list_4 = service.getCountComments();
 				request.setAttribute("user_list", list_1);
 				request.setAttribute("board_list", list_2);
 				request.setAttribute("count_list", list_4);
@@ -201,16 +201,20 @@ public class Controller extends HttpServlet {
 			case "index_order_reg":
 				list_1 = service.getUser_ALL();
 				list_2 = service.getBoard_ALL_ORDER_REG();
+				list_4 = service.getCountComments();
 				request.setAttribute("user_list", list_1);
 				request.setAttribute("board_list", list_2);
+				request.setAttribute("count_list", list_4);
 				path = "index.jsp";
 				break;
 			// 게시글 정렬 인덱스(조회수순)
 			case "index_order_hit":
 				list_1 = service.getUser_ALL();
 				list_2 = service.getBoard_ALL_ORDER_HIT();
+				list_4 = service.getCountComments();
 				request.setAttribute("user_list", list_1);
 				request.setAttribute("board_list", list_2);
+				request.setAttribute("count_list", list_4);
 				path = "index.jsp";
 				break;
 			// 댓글 추가
@@ -255,6 +259,17 @@ public class Controller extends HttpServlet {
 				request.setAttribute("board_id", board_id);
 				request.setAttribute("result", result);
 				path = "update_comment.jsp";
+				break;
+			// 검색 페이지
+			case "search_page":
+				path = "search_page.jsp";
+				break;
+			// 검색 결과
+			case "search":
+				String search = request.getParameter("search_con");
+				list_2 = service.getSearch(search);
+				request.setAttribute("board_list", list_2);
+				path = "search.jsp";
 				break;
 		}
 		request.getRequestDispatcher(path).forward(request, response);

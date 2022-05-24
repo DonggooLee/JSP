@@ -36,5 +36,7 @@ public interface BoardDao {
 	// 게시판 댓글 개수
 	public int getCountComment_(int board_id);
 	// 메인 홈페이지 게시판 댓글 개수
-	public List<CommentCountDto> getCountComment_();
+	public List<CommentCountDto> getCountComments_();
+	// 검색
+	public List<BoardDto> getSearch_(String search);
 }
