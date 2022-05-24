@@ -6,6 +6,7 @@ import org.ddongq.dao.BoardDao;
 import org.ddongq.dao.BoardDaoImpl;
 import org.ddongq.dao.UserDao;
 import org.ddongq.dto.BoardDto;
+import org.ddongq.dto.CommentCountDto;
 import org.ddongq.dto.CommentDto;
 import org.ddongq.dto.UserDto;
 import org.ddongq.dao.UserDaoImpl;
@@ -76,5 +77,17 @@ public class blogServiceImpl implements blogService{
 	@Override
 	public int getRemoveComment(int comment_id) {
 		return dao2.getRemoveComment_(comment_id);
+	}
+	@Override
+	public int getUpdateComment(CommentDto dto) {
+		return dao2.getUpdateComment_(dto);
+	}
+	@Override
+	public int getCountComment(int board_id) {
+		return dao2.getCountComment_(board_id);
+	}
+	@Override
+	public List<CommentCountDto> getCountComment() {
+		return dao2.getCountComment_();
 	}
 }

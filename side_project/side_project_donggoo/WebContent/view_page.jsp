@@ -53,7 +53,7 @@
 	}
 	.comment_top{
 		padding: 10px;
-		font-size: 15px;
+		font-size: 18px;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -65,6 +65,20 @@
 	.btn_index{
 		text-align: center;
 		margin-bottom: 30px;
+	}
+	#btn_comment{
+		text-align: right;
+		padding: 5px;
+	}
+	#count_comment{
+		display: flex;
+		text-align: left;
+		align-items: center;
+	}
+	.bottom_comment{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 	}
 </style>
 <title>Insert title here</title>
@@ -107,24 +121,29 @@
 			<br>
 			<div class="content">
 				<img src="upload/${select_board.filename}" width="100%" height="100%">
-				${select_board.content}
+					${select_board.content}
 				<hr>
 			</div>
 			<br>
 			<div class="btn_index">
-				<button onclick="location.href='/side_project_donggoo/Controller?cmd=index'">목록으로 이동</button>
+				<button onclick="location.href='/side_project_donggoo/Controller?cmd=index'" style="padding: 5px;">목록으로 이동</button>
 			</div>
         </div><!-- end : container_2 -->
-        <br><hr><br>
+        <br><hr>
         <div class="container_3">
         	<form action="/side_project_donggoo/Controller?cmd=insert_comment" method="post">
-        		<div>댓글</div>
-        		<br>
+        		<div><h2>댓 글</h2></div>
         		<textarea name="comment" cols="131" rows="10" placeholder="댓글을 작성하세요" style="resize: none;"></textarea>
         		<input type="hidden" name="user_id" value="${login_info.user_id}">
         		<input type="hidden" name="board_id" value="${select_board.board_id}">
         		<br><br>
-        		<input type="submit" value="댓글작성">
+        		<div class="bottom_comment">
+	        		<div id="count_comment">
+	        			<div><img src="./images/comment.jpg" style="width: 30px; height: 30px;"></div>
+	        			<div><b>&nbsp;&nbsp;${comment_count}</b></div>
+	        		</div>
+	        		<div id="btn_comment"><input type="submit" value="댓글작성" style="padding: 5px;"></div>
+        		</div>
         	</form>
         </div><!-- end : container_3 -->
          <br><hr><br>
@@ -139,20 +158,21 @@
 									<div class="comment_sub_info">
 										Write by <b>${user_list.id}</b> · ${comment_list.reg_date}
 									</div>
-									<!-- 로그인한 사용자와 댓글의 사용자 고유 id값이 동일할 경우에만 삭제 버튼이 활성화 -->
+									<!-- 로그인한 사용자와 댓글의 사용자 고유 id값이 동일할 경우에만 수정 및 삭제 버튼이 활성화 -->
 									<c:if test="${login_info.user_id eq comment_list.user_id}">
 										<div>
-											<a href="/side_project_donggoo/Controller?cmd=update_comment&comment_id=${comment_list.comment_id}&board_id=${select_board.board_id}">
-												<img src="./images/update.jpg" style="width: 30px; height: 30px;">
+											<a href="/side_project_donggoo/Controller?cmd=update_comment_page&comment_id=${comment_list.comment_id}&board_id=${select_board.board_id}">
+												<img src="./images/update.jpg" style="width: 25px; height: 25px;">
 											</a>
 											&nbsp;&nbsp;
 											<a href="/side_project_donggoo/Controller?cmd=remove_comment&comment_id=${comment_list.comment_id}&board_id=${select_board.board_id}">
-												<img src="./images/delete.jpg" style="width: 30px; height: 30px;">
+												<img src="./images/delete.jpg" style="width: 25px; height: 25px;">
 											</a>
 										</div>
 									</c:if>
 								</div>
 								<div class="comment_bottom">${comment_list.comments}</div>
+								<br><br>
 							 </c:if>
 						</c:forEach>
                     </c:forEach>

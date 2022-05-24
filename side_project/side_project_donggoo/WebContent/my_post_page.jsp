@@ -70,7 +70,7 @@
 			<th>제목</th>
 			<th>내용</th>
 			<th>작성일</th>
-			<th>첨부파일</th>
+			<th>첨부사진</th>
 			<th>삭제</th>
 		</tr>
 		<c:choose>

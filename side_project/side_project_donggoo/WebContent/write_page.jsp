@@ -38,7 +38,7 @@
 		<form method="post" name="myForm" enctype="multipart/form-data" action="/side_project_donggoo/Controller?cmd=write" onsubmit="return write_()">
 			<input type="text" name="title" placeholder="제목을 입력하세요" size="95px" style="padding: 10px;">
 			<br><br>
-			첨부파일 : <input type="file" name="filename"/>
+			첨부사진 : <input type="file" name="filename"/>
 			<br><br>
 			<textarea rows="45px" cols="100px" name="content" style="resize: none;" placeholder="당신의 이야기를 적어보세요..."></textarea>
 			<br>

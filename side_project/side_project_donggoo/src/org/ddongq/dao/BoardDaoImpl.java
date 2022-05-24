@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.ddongq.dto.BoardDto;
+import org.ddongq.dto.CommentCountDto;
 import org.ddongq.dto.CommentDto;
 import org.ddongq.mybatis.conf.DBService;
 
@@ -99,5 +100,21 @@ public class BoardDaoImpl implements BoardDao{
 			getSqlSession().commit();
 		}
 		return result;
+	}
+	@Override
+	public int getUpdateComment_(CommentDto dto) {
+		result = getSqlSession().update("update_comment_by_id", dto);
+		if(result>0) {
+			getSqlSession().commit();
+		}
+		return result;
+	}
+	@Override
+	public int getCountComment_(int board_id) {
+		return getSqlSession().selectOne("count_comment_by_id", board_id);
+	}
+	@Override
+	public List<CommentCountDto> getCountComment_() {
+		return getSqlSession().selectList("count_comment_all");
 	}
 }

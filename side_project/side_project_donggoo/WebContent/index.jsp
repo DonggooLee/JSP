@@ -70,6 +70,10 @@
 		justify-content: space-between;
 		align-items: center;
 	}
+	.content_bottom_sub{
+		display: flex;
+		align-items: center;
+	}
 	a{
 		text-decoration: none;
 		color: black;
@@ -119,6 +123,7 @@
         </div><!-- end : container_1 -->
 		<br>
         <div class="container_2">
+        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <div class="btn_order">
 	            <a href="/side_project_donggoo/Controller?cmd=index_order_hit">
 	           		<img src="./images/trending.jpg" style="width: 30px; height: 30px;">
@@ -146,7 +151,12 @@
                                 <div class="content_mid" onclick="location.href='/side_project_donggoo/Controller?cmd=view_page&board_id=${board_list.board_id}'">
                                     <div class="c1"><b>${board_list.title}</b></div>
                                     <div class="c2">${board_list.content}</div>
-                                    <div>${board_list.reg_date} · 댓글개수카운트</div>
+                                    <c:set var="count_list_length" value="${fn:length(count_list)}"/>
+                                    <c:forEach var="count_list" begin="0" end="${count_list_length}" items="${count_list}" step="1">
+	                                   <c:if test="${board_list.board_id eq count_list.board_id}">
+	                                   		<div>${board_list.reg_date} · <img src="./images/comment.jpg" style="width: 20px; height: 17px;"> ${count_list.count} 개의 댓글</div>
+	                                	</c:if>
+                                    </c:forEach>
                                 </div>
 								<!-- 게시글 작성자 정보 -->
                                 <div class="content_bottom">
@@ -158,8 +168,9 @@
 	                                        </c:if>
                                         </c:forEach>
                                     </div>
-                                    <div>
-                                        조회수 ${board_list.hit}
+                                    <div class="content_bottom_sub">
+                                    	<div><img src="./images/view.jpg" style="width: 30px; height: 30px;"></div>
+                                    	<div>${board_list.hit}&nbsp;&nbsp;</div>
                                     </div>
                                 </div>
                             </div><!-- end : content_ -->

@@ -3,6 +3,7 @@ package org.ddongq.dao;
 import java.util.List;
 
 import org.ddongq.dto.BoardDto;
+import org.ddongq.dto.CommentCountDto;
 import org.ddongq.dto.CommentDto;
 
 public interface BoardDao {
@@ -30,4 +31,10 @@ public interface BoardDao {
 	public List<CommentDto> getComment_(int board_id);
 	// 게시글 댓글 삭제
 	public int getRemoveComment_(int comment_id);
+	// 게시판 댓글 수정
+	public int getUpdateComment_(CommentDto dto);
+	// 게시판 댓글 개수
+	public int getCountComment_(int board_id);
+	// 메인 홈페이지 게시판 댓글 개수
+	public List<CommentCountDto> getCountComment_();
 }

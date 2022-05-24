@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.ddongq.dto.BoardDto;
+import org.ddongq.dto.CommentCountDto;
 import org.ddongq.dto.CommentDto;
 import org.ddongq.dto.UserDto;
 import org.ddongq.service.blogService;
@@ -41,6 +42,7 @@ public class Controller extends HttpServlet {
 		List<UserDto> list_1 = null;
 		List<BoardDto> list_2 = null;
 		List<CommentDto> list_3 = null;
+		List<CommentCountDto> list_4 = null;
 		int result = 0;
 		int user_id = 0;
 		int board_id = 0;
@@ -60,8 +62,10 @@ public class Controller extends HttpServlet {
 				}
 				list_1 = service.getUser_ALL();
 				list_2 = service.getBoard_ALL();
+				list_4 = service.getCountComment();
 				request.setAttribute("user_list", list_1);
 				request.setAttribute("board_list", list_2);
+				request.setAttribute("count_list", list_4);
 				path = "index.jsp";
 				break;
 			// 로그인 페이지 이동
@@ -185,8 +189,10 @@ public class Controller extends HttpServlet {
 				}
 				// DB 저장된 모든 회원 조회
 				list_1 = service.getUser_ALL();
-				// 게시판 번호에 해당하는 댓글 조회
+				// 게시판 번호에 해당하는 댓글 개수 조회
+				int count = service.getCountComment(board_id);
 				session.setAttribute("user_list", list_1);
+				request.setAttribute("comment_count", count);
 				request.setAttribute("comment_list", list_3);
 				request.setAttribute("select_board", b_dto);
 				path = "view_page.jsp";
@@ -221,6 +227,7 @@ public class Controller extends HttpServlet {
 				request.setAttribute("result", result);
 				path = "insert_comment.jsp";
 				break;
+			// 댓글 삭제
 			case "remove_comment":
 				board_id = Integer.parseInt(request.getParameter("board_id"));
 				comment_id = Integer.parseInt(request.getParameter("comment_id"));
@@ -229,11 +236,24 @@ public class Controller extends HttpServlet {
 				request.setAttribute("result", result);
 				path = "remove_comment.jsp";
 				break;
+			// 댓글 수정 페이지
+			case "update_comment_page":
+				board_id = Integer.parseInt(request.getParameter("board_id"));
+				comment_id = Integer.parseInt(request.getParameter("comment_id"));
+				request.setAttribute("board_id", board_id);
+				request.setAttribute("comment_id", comment_id);
+				path = "update_comment_page.jsp";
+				break;
+			// 댓글 수정
 			case "update_comment":
 				board_id = Integer.parseInt(request.getParameter("board_id"));
 				comment_id = Integer.parseInt(request.getParameter("comment_id"));
-				
+				c_dto = new CommentDto();
+				c_dto.setComment_id(comment_id);
+				c_dto.setComments(request.getParameter("comments"));
+				result = service.getUpdateComment(c_dto);
 				request.setAttribute("board_id", board_id);
+				request.setAttribute("result", result);
 				path = "update_comment.jsp";
 				break;
 		}
