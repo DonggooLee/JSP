@@ -77,7 +77,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 메인 홈페이지 댓글 개수 구하기 -->
 	<select id="count_comment_all" resultType="org.ddongq.dto.CommentCountDto">
-		SELECT count(*) as count, board_id FROM comment_ GROUP BY board_id
+		SELECT count(comments) as count, board_id FROM board_ Full Outer Join comment_ USING(board_id) GROUP BY board_id
 	</select>
 	
 	<!-- 검색 -->

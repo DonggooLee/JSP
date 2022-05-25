@@ -80,6 +80,9 @@
 		justify-content: space-between;
 		align-items: center;
 	}
+	.content{
+		padding: 15px;
+	}
 </style>
 <title>Insert title here</title>
 </head>

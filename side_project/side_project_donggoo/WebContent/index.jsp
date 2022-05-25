@@ -88,12 +88,23 @@
 		margin-top: 5px;
 	}
 	.c2{
+		width : 390px;
 		overflow: hidden;
 		padding: 10px;
+		text-overflow: clip;
+		
 	}
 	.non_content{
 		text-align: center;
 		margin-top: 300px;
+	}
+	.truncate-text {
+	    max-width: 390px; /** Adjust width to your needs */
+	    display: inline-block;
+	    vertical-align: middle;
+	    overflow: hidden;
+	    white-space: nowrap;
+	    text-overflow: ellipsis;
 	}
 </style>
 </head>
@@ -153,11 +164,11 @@
 								<!-- 게시글 내용 파트 -->
                                 <div class="content_mid" onclick="location.href='/side_project_donggoo/Controller?cmd=view_page&board_id=${board_list.board_id}'">
                                     <div class="c1"><b>${board_list.title}</b></div>
-                                    <div class="c2">${board_list.content}</div>
+                                    <div class="c2"><div class="truncate-text">${board_list.content}</div></div>
                                     <c:forEach var="count_list" items="${count_list}">
                                     	<!-- 게시판DB의 게시판 인덱스와 댓글 DB의 게시판 인덱스가 일치해야 출력 -->
 		                                <c:if test="${board_list.board_id eq count_list.board_id}">
-                                   			<div>${board_list.reg_date} · <img src="./images/comment.jpg" style="width: 20px; height: 17px;"> ${count_list.count} 개의 댓글</div>
+                                   			<div>&nbsp;${board_list.reg_date} · <img src="./images/comment.jpg" style="width: 20px; height: 17px;"> ${count_list.count} 개의 댓글</div>
 		                                </c:if>
                                     </c:forEach>
                                 </div>
@@ -166,7 +177,7 @@
                                     <div>
                                         <c:forEach var="user_list" items="${user_list}">
 		                                    <c:if test="${board_list.user_id eq user_list.user_id}">
-		                                   		Write by <b>${user_list.name}</b> 
+		                                   		&nbsp;Write by <b>${user_list.name}</b> 
 		                                    </c:if>
                                         </c:forEach>
                                     </div>
